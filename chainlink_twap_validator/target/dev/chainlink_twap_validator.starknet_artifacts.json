@@ -1,0 +1,1 @@
+{"version":1,"contracts":[{"id":"m90a7cc375kue","package_name":"chainlink_twap_validator","contract_name":"module","module_path":"chainlink_twap_validator::module","artifacts":{"sierra":"chainlink_twap_validator_module.contract_class.json","casm":"chainlink_twap_validator_module.compiled_contract_class.json"}}]}

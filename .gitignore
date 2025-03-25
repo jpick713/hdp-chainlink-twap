@@ -1,0 +1,17 @@
+# Build artifacts
+/target
+**/*.rs.bk
+
+# Environment variables
+.env
+
+# IDE files
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# HDP specific
+/home/runner

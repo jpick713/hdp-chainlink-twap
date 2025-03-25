@@ -1,0 +1,9 @@
+[workspace]
+members = ["chainlink_twap_validator"]
+
+[workspace.dependencies]
+starknet = "2.4.0"
+hdp_cairo = { git = "https://github.com/HerodotusDev/hdp-cairo.git" }
+
+[workspace.tool]
+fmt.sort-module-level-items = true
