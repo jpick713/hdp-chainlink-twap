@@ -32,6 +32,8 @@ mod module {
         let blocks_to_skip = 50_u32; // Assuming approximately 10 minutes at 12 sec block time
 
         // Validate input addresses
+        let base_oracle_numeric : felt252 = base_asset_oracle_address.into();
+        let quote_oracle_numeric : felt252 = quote_asset_oracle_address.into();
         assert!(base_asset_oracle_address.into() != 0);
         assert!(quote_asset_oracle_address.into() != 0);
         
@@ -51,6 +53,10 @@ mod module {
             OptionType::Put => twap_ratio < barrier_price,
             OptionType::Call => twap_ratio > barrier_price,
         };
+
+        println!("Debug - twap_ratio: {}", twap_ratio);
+        println!("Debug - barrier_price: {}", barrier_price);
+        println!("Debug - condition_met: {}", condition_met);
 
         // Assert that the condition is met
         assert!(condition_met);
@@ -73,15 +79,20 @@ mod module {
 
         // Loop through minute samples (separated by blocks_to_skip)
         let mut minute_counter: u32 = 0;
+        print!("I'm about to enter minute counter!");
         while minute_counter < minute_samples {
             let skip_blocks: felt252 = (minute_counter * blocks_to_skip).into();
             let current_start_block = start_block + skip_blocks;
+            println!("Debug - current_start_block: {}", current_start_block);
+            println!("Debug - minute_counter: {}", minute_counter);
             
             // Take samples_per_minute consecutive blocks for each minute sample
             let mut block_counter: u32 = 0;
             while block_counter < samples_per_minute {
                 let block_increment: felt252 = block_counter.into();
                 let block_number = current_start_block + block_increment;
+                println!("Debug - block_number: {}", block_number);
+                println!("Debug - block_counter: {}", block_counter);
                 
                 // Get base asset price from Chainlink
                 let base_price = get_chainlink_price(
@@ -116,6 +127,9 @@ mod module {
         
         // Ensure we collected all expected samples
         let expected_samples = samples_per_minute * minute_samples;
+        println!("Debug - total_samples: {}", total_samples);
+        println!("Debug - expected_samples: {}", expected_samples);
+
         assert!(total_samples == expected_samples);
         
         // Calculate average prices
@@ -160,22 +174,43 @@ mod module {
                 @round_storage_key
             );
 
-        // Apply bit shift of 4 bytes (32 bits) to the retrieved storage value
-        let shifted_value = raw_storage_value / 0x100000000;  // Right shift by 32 bits
+        // Ensure we got a valid storage value
+        println!("Debug - raw_storage_value: {}", raw_storage_value);
+
+        // Apply bit shift of 6 bytes (48 bits) to the retrieved storage value
+        let shifted_value = raw_storage_value / 0x1000000000000;  // Right shift by 48 bits
+
+        println!("Debug - shifted_value: {}", shifted_value);
 
         // Ensure we got a valid round ID
         assert!(shifted_value != 0);
 
+        let masked_value = shifted_value & 0xFFFFFFFF;
+
+        println!("Debug - raw_storage_value: {}", raw_storage_value);
+        println!("Debug - shifted_value: {}", shifted_value);
+        println!("Debug - masked_value: {}", masked_value);
+
+        // Ensure we got a valid round ID
+        assert!(masked_value != 0);
+
         // Convert to round_id
-        let round_id: u32 = shifted_value.try_into().unwrap();
+        let round_id: u32 = masked_value.try_into().unwrap();
         let round_id_u256: u256 = round_id.into();
+        println!("Debug - round_id: {}", round_id);
+        println!("Debug - round_id_u256: {}", round_id_u256);
 
         // 2. Calculate storage slot for price data using keccak
         // Create array with round_id and constant for keccak input
         let input = array![round_id_u256, 0x000000000000000000000000000000000000000000000000000000000000000c];
+
+        println!("Debug - input_0: {}", input[0]);
+        println!("Debug - input_1: {}", input[1]);
         
         // Compute keccak hash using big-endian format (Ethereum standard)
         let price_slot = keccak::keccak_u256s_be_inputs(input.span());
+
+        println!("Debug - price_slot: {}", price_slot);
 
         // 3. Create a storage key for the price using the slot
         let price_storage_key = StorageKey {
@@ -191,6 +226,8 @@ mod module {
             .storage_get_slot(
                 @price_storage_key
             );
+
+        println!("Debug - full_price_data: {}", full_price_data);
 
         // 5. Extract lowest 24 bytes (mask out the top 8 bytes)
         let mask = 0x0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff;
