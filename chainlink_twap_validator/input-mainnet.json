@@ -1,11 +1,11 @@
 [
     {
         "visibility": "public",
-        "value": "0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7"
+        "value": "0x4a3411ac2948B33c69666B35cc6d055B27Ea84f1"
     },
     {
         "visibility": "public",
-        "value": "0x4a3411ac2948B33c69666B35cc6d055B27Ea84f1"
+        "value": "0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7"
     },
     {
         "visibility": "public",
@@ -13,10 +13,14 @@
     },
     {
         "visibility": "public",
-        "value": "0x5F5E100"
+        "value": "0x104C533C00"
     },
     {
         "visibility": "public",
-        "value": "0x1"
+        "value": "0x0"
+    },
+    {
+        "visibility": "public",
+        "value": "0x6"
     }
 ]

@@ -70,13 +70,13 @@ Execute HDP steps using the built-from-source CLI:
 
 ```bash
 # 1. Run a dry run to simulate execution and identify needed proofs
-$HDP_CLI_PATH dry-run -m target/dev/chainlink_twap_validator_chainlink_twap_validator.contract_class.json --print_output --inputs input.json
+$HDP_CLI_PATH dry-run -m target/dev/chainlink_twap_validator_module.compiled_contract_class.json --print_output --inputs input-mainnet.json
 
 # 2. Fetch required on-chain proofs
 $HDP_CLI_PATH fetch-proofs
 
 # 3. Run with verified on-chain data
-$HDP_CLI_PATH sound-run -m target/dev/chainlink_twap_validator_chainlink_twap_validator.contract_class.json --print_output
+$HDP_CLI_PATH sound-run -m target/dev/chainlink_twap_validator_module.contract_class.json --print_output
 ```
 
 ## Common Issues and Troubleshooting

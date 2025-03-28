@@ -1,11 +1,11 @@
 [
     {
         "visibility": "public",
-        "value": "0x719E22E3D4b690E5d96cCb40619180B5427F14AE"
+        "value": "0x17Dac87b07EAC97De4E182Fc51C925ebB7E723e2"
     },
     {
         "visibility": "public",
-        "value": "0x17Dac87b07EAC97De4E182Fc51C925ebB7E723e2"
+        "value": "0x719E22E3D4b690E5d96cCb40619180B5427F14AE"
     },
     {
         "visibility": "public",
@@ -18,5 +18,9 @@
     {
         "visibility": "public",
         "value": "0x0"
+    },
+    {
+        "visibility": "public",
+        "value": "0x6"
     }
 ]
