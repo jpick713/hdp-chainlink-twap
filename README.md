@@ -90,13 +90,13 @@ $HDP_CLI_PATH sound-run -m target/dev/chainlink_twap_validator_module.contract_c
 ## Example input.json
 ```json
 [
-    {
+   {
         "visibility": "public",
-        "value": "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6" // Base asset oracle address (USDC/USD on mainnet)
-    },
-    {
+        "value": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c" // Base asset oracle address (BTC/USD on mainnet)
+    },   
+   {
         "visibility": "public",
-        "value": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c" // Quote asset oracle address (BTC/USD on mainnet)
+        "value": "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6" // Quote asset oracle address (USDC/USD on mainnet)
     },
     {
         "visibility": "public",
@@ -109,7 +109,11 @@ $HDP_CLI_PATH sound-run -m target/dev/chainlink_twap_validator_module.contract_c
     {
         "visibility": "public",
         "value": "0x0" // Option type (0 = Put, 1 = Call)
-    }
+    },
+    {
+        "visibility": "public",
+        "value": "0x6" // Quote asset decimals
+    },
 ]
 ```
 
